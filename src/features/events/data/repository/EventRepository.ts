@@ -3,7 +3,7 @@ import { EventDTO } from "../models/EventDTO";
 
 export class EventRepository{
     async create(_event: Event): Promise<EventDTO | null >{
-        
+        console.log(import.meta.env.API_URL)
         try{
             if(!_event.title || !_event.description || !_event.emitter){
                 console.warn("faltan datos");
