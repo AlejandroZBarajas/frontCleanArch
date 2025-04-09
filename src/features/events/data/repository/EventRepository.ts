@@ -54,4 +54,22 @@ export class EventRepository{
             return null
         }
     }
+
+    async deleteAll(): Promise<boolean> {
+        try {
+            const response = await fetch(import.meta.env.VITE_API_URL, {
+                method: 'DELETE'
+            });
+    
+            if (!response.ok) {
+                console.error("Error al borrar los eventos:", response.statusText);
+                return false;
+            }
+    
+            return true;
+        } catch (error) {
+            console.error("Error al borrar los eventos:", error);
+            return false;
+        }
+    }
 }

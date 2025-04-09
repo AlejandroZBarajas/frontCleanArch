@@ -1,39 +1,20 @@
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { EventListViewModel } from "../viewmodels/EventListViewModel";
+import { EventDeleteViewModel } from "../viewmodels/EventDeleteViewModel";
 import "./EventListView.css";
 
 type Props = {
-    viewModel: EventListViewModel
+    viewModel: EventListViewModel,
+    deleteModel: EventDeleteViewModel
 }
 
-export const EventListView = observer (({viewModel} : Props) => {
+export const EventListView = observer (({viewModel, deleteModel} : Props) => {
     useEffect(() => {
         viewModel.fetchAllEvents()
     }, [])
 
-    const handleDeleteAll = async () => {
-        const confirm = window.confirm("¿Seguro? Es irreversible")
-        if (!confirm){
-            return
-        }
 
-        try{
-            const response = await fetch(import.meta.env.VITE_API_URL, {
-                method: "DELETE"
-            })
-            if (!response.ok){
-                alert("Ocurrió un error al eliminar todos los eventos")
-                return
-            }
-
-            alert("Eventos eliminados")
-            viewModel.fetchAllEvents()
-        }catch (error){
-            console.error("Error eliminando eventos:", error);
-            alert("Error al conectar con la API.");
-        }
-    }
 
     return (
         <div className="event-page">
@@ -41,8 +22,13 @@ export const EventListView = observer (({viewModel} : Props) => {
             <h2 className="event-title">Lista de Eventos</h2>
             {viewModel.error && <p className="event-error">{viewModel.error}</p>}
     
-            <button className="event-delete-btn" onClick={handleDeleteAll}>
-              Eliminar Todos los Eventos
+            <button className="event-delete-btn"
+              onClick={async () => {
+                await deleteModel.fetchDeleteAll();
+                viewModel.fetchAllEvents(); 
+              }}
+            >
+              Eliminar todos
             </button>
     
             <table className="event-table">

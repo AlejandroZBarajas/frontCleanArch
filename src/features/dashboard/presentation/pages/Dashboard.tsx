@@ -1,17 +1,18 @@
 import { EventListView } from "../../../events/presentation/pages/EventListView"
 import { EventListViewModel } from "../../../events/presentation/viewmodels/EventListViewModel"
 import { EventRepository } from "../../../events/data/repository/EventRepository";
+import { EventDeleteViewModel } from "../../../events/presentation/viewmodels/EventDeleteViewModel";
 
 const Dashboard = () => {
 
     const repo = new EventRepository();
     const viewModel = new EventListViewModel(repo);
+    const deleteViewModel = new EventDeleteViewModel(repo)
 
   
     return (
       <div>
-        <h1>Dashboard Page</h1>
-        <EventListView viewModel={viewModel} />
+        <EventListView viewModel={viewModel} deleteModel={deleteViewModel} />
       </div>
     );
   };

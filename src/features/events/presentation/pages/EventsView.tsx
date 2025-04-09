@@ -36,9 +36,9 @@ export const EventView = observer(({viewModel}: Props) => {
                     <div className="form-group">
                         <label className="form-label">Descripción</label>
                         <input
-                            type="text"
+                            type="number"
                             value={viewModel.description}
-                            onChange={(e) => viewModel.onChangeDescription(e.target.value)}
+                            onChange={(e) => viewModel.onChangeDescription(Number(e.target.value))}
                             className="form-input"
                             required
                         />

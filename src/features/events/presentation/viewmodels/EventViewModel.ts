@@ -5,7 +5,7 @@ import { CreateEventUseCase } from "../../domain/CreateEventUseCase";
 
 export class EventViewModel{
     title: string = ''
-    description: string = ''
+    description: number = 0
     emitter: string = ''
 
     error : string | null = null
@@ -23,7 +23,7 @@ export class EventViewModel{
         this.title = title
     }
 
-    onChangeDescription(desc:string){
+    onChangeDescription(desc:number){
         this.description = desc
     }
 
